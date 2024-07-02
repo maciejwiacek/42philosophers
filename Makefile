@@ -3,6 +3,12 @@ NAME = philo
 SRC_DIR = src
 
 SRC_FILES = main.c \
+			init.c \
+			threads.c \
+			observer.c \
+			philosopher.c \
+			philosophers_tasks.c \
+			utils.c \
 
 SRC = $(foreach file,$(SRC_FILES),$(SRC_DIR)/$(file))
 
