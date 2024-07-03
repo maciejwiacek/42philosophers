@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/03 16:49:38 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:29:59 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct s_philo
 	size_t		meals_counter;
 	bool		is_full;
 	time_t		last_ate;
+	time_t		time_to_eat;
+	time_t		time_to_sleep;
+	time_t		time_to_die;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
 }	t_philo;
@@ -73,5 +76,7 @@ void	parse_data(t_table *table, char **av);
 bool	has_only_digits(char *s);
 void	*philosopher(void *data);
 void	*monitor(void *data);
+time_t	current_time(void);
+void	eating_start(t_table *table);
 
 #endif

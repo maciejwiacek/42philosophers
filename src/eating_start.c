@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   eating_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:27:23 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/03 17:25:50 by mwiacek          ###   ########.fr       */
+/*   Created: 2024/07/03 17:03:05 by mwiacek           #+#    #+#             */
+/*   Updated: 2024/07/03 17:33:50 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-int	main(int ac, char **av)
+static void	create_threads(t_table table, t_philo *philos)
 {
-	t_table	table;
+	size_t	i;
 
-	if (ac == 5 || ac == 6)
+	i = 0;
+	while (i < table.philos_num)
 	{
-		parse_data(&table, av);
-		eating_start(&table);
+		if (i % 2 == 0)
+			usleep(10);
+		pthread_create(&philos[i].thread_id, NULL, philosopher, &philos[i]);
+		// Clean up after threads creation failure
+		i++;
 	}
-	else
+}
+
+void	eating_start(t_table *table)
+{
+	size_t	i;
+
+	i = 0;
+	create_threads(*table, table->philos);
+	while (i < table->philos_num)
 	{
-		error("Wrong input");
+		pthread_join(table->philos[i].thread_id, NULL);
+		i++;
 	}
 }

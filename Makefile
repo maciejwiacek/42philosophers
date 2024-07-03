@@ -7,7 +7,8 @@ SRC_FILES = main.c \
 			validation.c \
 			parsing.c \
 			monitor.c \
-			philosopher.c
+			philosopher.c \
+			eating_start.c
 
 SRC = $(foreach file,$(SRC_FILES),$(SRC_DIR)/$(file))
 
