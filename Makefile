@@ -5,7 +5,9 @@ SRC_DIR = src
 SRC_FILES = main.c \
 			utils.c \
 			validation.c \
-			parsing.c
+			parsing.c \
+			monitor.c \
+			philosopher.c
 
 SRC = $(foreach file,$(SRC_FILES),$(SRC_DIR)/$(file))
 

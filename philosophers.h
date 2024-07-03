@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/03 15:44:49 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:49:38 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	error(char *s);
 void	validate_input(char **av);
 void	parse_data(t_table *table, char **av);
 bool	has_only_digits(char *s);
+void	*philosopher(void *data);
+void	*monitor(void *data);
 
 #endif

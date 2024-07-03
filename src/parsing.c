@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:36:25 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/03 16:28:42 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:09 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,25 @@ static void	init_table(t_table *table, char **av)
 	printf(G"✅\tTables initialized successfully\t✅\n"RST);
 }
 
+static void	create_threads(t_table table, t_philo *philos)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < table.philos_num)
+	{
+		if (i % 2 == 0)
+			usleep(10);
+		pthread_create(&philos[i].thread_id, NULL, philosopher, &philos[i]);
+		i++;
+	}
+}
+
 void	parse_data(t_table *table, char **av)
 {
 	validate_input(av);
 	init_forks(table, ft_atoi(av[1]));
 	init_philos(table, ft_atoi(av[1]), av);
 	init_table(table, av);
+	create_threads(*table, table->philos);
 }
