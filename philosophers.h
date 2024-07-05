@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/03 17:29:59 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/05 01:43:19 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,50 +33,48 @@
 # define Y "\033[1;33m"
 # define W "\033[1;37m"
 
-# define MAX_PHILOS 200
-
 typedef pthread_mutex_t	t_mtx;
-
-typedef struct s_fork
-{
-	size_t	fork_id;
-	t_mtx	fork;
-}	t_fork;
 
 typedef struct s_philo
 {
-	size_t		id;
-	pthread_t	thread_id;
-	size_t		meals_counter;
-	bool		is_full;
-	time_t		last_ate;
-	time_t		time_to_eat;
-	time_t		time_to_sleep;
-	time_t		time_to_die;
-	t_fork		*l_fork;
-	t_fork		*r_fork;
-}	t_philo;
-
-typedef struct s_table
+	pthread_t		thread;
+	int				id;
+	bool			eating;
+	int				meals_eaten;
+	size_t			last_meal;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	size_t			start_time;
+	int				num_of_philos;
+	int				num_times_to_eat;
+	bool			*dead;
+	t_mtx			*r_fork;
+	t_mtx			*l_fork;
+	t_mtx			*write_lock;
+	t_mtx			*dead_lock;
+	t_mtx			*meal_lock;
+}					t_philo;
+typedef struct s_program
 {
-	size_t	philos_num;
-	time_t	time_to_die;
-	time_t	time_to_eat;
-	time_t	time_to_sleep;
-	size_t	meals_limit;
-	time_t	start_time;
-	bool	did_finish;
-	t_fork	*forks;
-	t_philo	*philos;
-}	t_table;
+	bool			dead_flag;
+	t_mtx			dead_lock;
+	t_mtx			meal_lock;
+	t_mtx			write_lock;
+	t_philo			*philos;
+}					t_program;
 
-void	error(char *s);
-void	validate_input(char **av);
-void	parse_data(t_table *table, char **av);
 bool	has_only_digits(char *s);
-void	*philosopher(void *data);
-void	*monitor(void *data);
-time_t	current_time(void);
-void	eating_start(t_table *table);
+void	error(char *s);
+void	print_message(char *s, t_philo *philo);
+size_t	current_time(void);
+void	validate_input(char **av);
+void	parse_input(t_program *program, t_philo *philos, t_mtx *forks, char **av);
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_eat(t_philo *philo);
+bool	died(t_philo *philos);
+bool	ate_all_meals(t_philo *philos);
+void	start_loop(t_program *program);
 
 #endif
