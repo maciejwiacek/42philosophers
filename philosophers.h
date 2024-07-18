@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 21:32:16 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 21:51:34 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	init_structs(t_program *program, t_philo *philos,
 			t_mtx *forks, char **av);
 
 // dinner.c
+bool	check_for_dead(t_philo *philo);
 void	start_dinner(t_program *program, t_mtx *forks);
 
 // philo_actions.c

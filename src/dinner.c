@@ -12,7 +12,7 @@
 
 #include "../philosophers.h"
 
-static bool	check_for_dead(t_philo *philo)
+bool	check_for_dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
 	if (*philo->dead)

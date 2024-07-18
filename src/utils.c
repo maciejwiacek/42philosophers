@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:03:40 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 18:34:31 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 21:51:40 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	print_message(char *s, t_philo *philo)
 
 	time = get_current_time() - philo->start_time;
 	pthread_mutex_lock(philo->write_lock);
-	printf("%zu %d %s\n", time, philo->id, s);
+	if (!check_for_dead(philo))
+		printf("%zu %d %s\n", time, philo->id, s);
 	pthread_mutex_unlock(philo->write_lock);
 }
