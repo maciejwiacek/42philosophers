@@ -6,32 +6,22 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/05 01:43:19 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:57:59 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# define PHILOS_MAX 200
-
-# include "./library/includes/get_next_line.h"
-# include "./library/includes/printf.h"
-# include "./library/includes/libft.h"
-# include <pthread.h>
-# include <sys/wait.h>
-# include <sys/time.h>
-# include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <limits.h>
 
-# define RST "\033[0m"
-# define R "\033[1;31m"
-# define G "\033[1;32m"
-# define B "\033[1;34m"
-# define C "\033[1;36m"
-# define M "\033[1;35m"
-# define Y "\033[1;33m"
-# define W "\033[1;37m"
+# define MAX_PHILOS 200
 
 typedef pthread_mutex_t	t_mtx;
 
@@ -55,6 +45,7 @@ typedef struct s_philo
 	t_mtx			*dead_lock;
 	t_mtx			*meal_lock;
 }					t_philo;
+
 typedef struct s_program
 {
 	bool			dead_flag;
@@ -64,17 +55,19 @@ typedef struct s_program
 	t_philo			*philos;
 }					t_program;
 
-bool	has_only_digits(char *s);
-void	error(char *s);
-void	print_message(char *s, t_philo *philo);
-size_t	current_time(void);
+// utils.c
+void	error_exit(char *s);
+size_t	get_current_time(void);
+int		ft_usleep(size_t milliseconds);
+
+// validate.c
 void	validate_input(char **av);
-void	parse_input(t_program *program, t_philo *philos, t_mtx *forks, char **av);
-void	ft_think(t_philo *philo);
-void	ft_sleep(t_philo *philo);
-void	ft_eat(t_philo *philo);
-bool	died(t_philo *philos);
-bool	ate_all_meals(t_philo *philos);
-void	start_loop(t_program *program);
+
+// atol.c
+long	ft_atol(char *s);
+
+// init.c
+void	init_structs(t_program *program, t_philo *philos,
+			t_mtx *forks, char **av);
 
 #endif

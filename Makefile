@@ -4,11 +4,9 @@ SRC_DIR = src
 
 SRC_FILES = main.c \
 			utils.c \
-			validation.c \
-			parsing.c \
-			start_loop.c \
-			philo_tasks.c \
-			monitoring.c
+			validate.c \
+			atol.c \
+			init.c
 
 SRC = $(foreach file,$(SRC_FILES),$(SRC_DIR)/$(file))
 
@@ -20,15 +18,12 @@ all: $(NAME)
 	cc -Wall -Wextra -Werror -c $< -o $@
 
 $(NAME): $(OBJ)
-	make -C library
-	cc -Wall -Wextra -Werror $(OBJ) library/library.a -o $(NAME)
+	cc -Wall -Wextra -Werror $(OBJ) -o $(NAME)
 
 clean:
-	make clean -C library
 	rm -f $(OBJ)
 
 fclean: clean
-	make fclean -C library
 	rm -f $(NAME)
 
 re: fclean all

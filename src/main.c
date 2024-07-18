@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 15:27:23 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/05 01:15:20 by mwiacek          ###   ########.fr       */
+/*   Created: 2024/07/18 14:57:38 by mwiacek           #+#    #+#             */
+/*   Updated: 2024/07/18 15:39:37 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,14 @@
 int	main(int ac, char **av)
 {
 	t_program	program;
-	t_philo		*philos;
-	t_mtx		*forks;
+	t_philo		philos[MAX_PHILOS];
+	t_mtx		forks[MAX_PHILOS];
 
 	if (ac == 5 || ac == 6)
 	{
-		philos = malloc(sizeof(t_philo) * ft_atoi(av[1]));
-		forks = malloc(sizeof(t_philo) * ft_atoi(av[1]));
 		validate_input(av);
-		parse_input(&program, philos, forks, av);
-		start_loop(&program);
-		free(philos);
-		free(forks);
+		init_structs(&program, philos, forks, av);
 	}
 	else
-	{
-		error("Wrong number of arguments");
-	}
+		error_exit("Wrong number of arguments!");
 }

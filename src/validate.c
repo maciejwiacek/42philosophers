@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 15:03:40 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 15:57:49 by mwiacek          ###   ########.fr       */
+/*   Created: 2024/07/18 15:05:10 by mwiacek           #+#    #+#             */
+/*   Updated: 2024/07/18 15:33:21 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-void	error_exit(char *s)
+void	validate_input(char **av)
 {
-	printf("%s\n", s);
-	exit(1);
-}
-
-size_t	get_current_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-int	ft_usleep(size_t milliseconds)
-{
-	size_t	start;
-
-	start = get_current_time();
-	while ((get_current_time() - start) < milliseconds)
-		usleep(500);
-	return (0);
+	if (ft_atol(av[1]) < 1 || ft_atol(av[1]) > MAX_PHILOS)
+		error_exit("Number of philos incorrect!");
+	if (ft_atol(av[2]) < 60)
+		error_exit("Time to die incorrect!");
+	if (ft_atol(av[3]) < 60)
+		error_exit("Time to eat incorrect!");
+	if (ft_atol(av[4]) < 60)
+		error_exit("Time to sleep incorrect!");
+	if (av[5] && ft_atol(av[5]) < 1)
+		error_exit("Number of meals incorrect!");
 }
