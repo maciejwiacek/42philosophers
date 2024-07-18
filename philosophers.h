@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 11:44:43 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 15:57:59 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 21:32:16 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_program
 void	error_exit(char *s);
 size_t	get_current_time(void);
 int		ft_usleep(size_t milliseconds);
+void	exit_mutexes(t_program *program, t_mtx *forks);
+void	print_message(char *s, t_philo *philo);
 
 // validate.c
 void	validate_input(char **av);
@@ -69,5 +71,17 @@ long	ft_atol(char *s);
 // init.c
 void	init_structs(t_program *program, t_philo *philos,
 			t_mtx *forks, char **av);
+
+// dinner.c
+void	start_dinner(t_program *program, t_mtx *forks);
+
+// philo_actions.c
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_eat(t_philo *philo);
+
+// monitoring_utils.c
+bool	ate_all_meals(t_philo *philos);
+bool	philo_died(t_philo *philos);
 
 #endif

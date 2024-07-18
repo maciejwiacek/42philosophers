@@ -6,7 +6,10 @@ SRC_FILES = main.c \
 			utils.c \
 			validate.c \
 			atol.c \
-			init.c
+			init.c \
+			dinner.c \
+			philo_actions.c \
+			monitoring_utils.c
 
 SRC = $(foreach file,$(SRC_FILES),$(SRC_DIR)/$(file))
 

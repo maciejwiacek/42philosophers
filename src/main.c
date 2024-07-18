@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:57:38 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 15:39:37 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:46:54 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av)
 	{
 		validate_input(av);
 		init_structs(&program, philos, forks, av);
+		start_dinner(&program, forks);
 	}
 	else
 		error_exit("Wrong number of arguments!");

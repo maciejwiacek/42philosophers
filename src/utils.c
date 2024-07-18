@@ -6,7 +6,7 @@
 /*   By: mwiacek <mwiacek@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 15:03:40 by mwiacek           #+#    #+#             */
-/*   Updated: 2024/07/18 15:57:49 by mwiacek          ###   ########.fr       */
+/*   Updated: 2024/07/18 18:34:31 by mwiacek          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,27 @@ int	ft_usleep(size_t milliseconds)
 	while ((get_current_time() - start) < milliseconds)
 		usleep(500);
 	return (0);
+}
+
+void	exit_mutexes(t_program *program, t_mtx *forks)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_destroy(&program->dead_lock);
+	pthread_mutex_destroy(&program->write_lock);
+	pthread_mutex_destroy(&program->meal_lock);
+	while (++i < program->philos[0].num_of_philos)
+		pthread_mutex_destroy(&forks[i]);
+	error_exit("Mutex operation went wrong!");
+}
+
+void	print_message(char *s, t_philo *philo)
+{
+	size_t	time;
+
+	time = get_current_time() - philo->start_time;
+	pthread_mutex_lock(philo->write_lock);
+	printf("%zu %d %s\n", time, philo->id, s);
+	pthread_mutex_unlock(philo->write_lock);
 }
